@@ -1,10 +1,17 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import Events from './events';
 
 class MonthView extends Component {
     constructor(){
         super();
         this.weeks = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
         this.months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        this.canvasClass = {
+            'circle':['circle1','circle2','circle3','circle4','circle5'],
+            'rect': ['rect1','rect2','rect3','rect4','rect5'],
+            'triangle': ['triangle1','triangle2','triangle3','triangle4','triangle5'],
+            'poly': ['poly1','poly2','poly3','poly4','poly5']
+        };
         this.date = new Date();
         this.state = {
             Month : generateDays(),
@@ -49,6 +56,25 @@ class MonthView extends Component {
                         ))
                     }
                 </select>
+                <div class="plus">
+                    <span>+</span>
+                </div>
+                <div className="circle">
+                    <div className="circle6"></div>
+                    <div className="circle7"></div>
+                    <div className="circle8"></div>
+                    <div className="circle4"></div>
+                    <div className="circle5"></div>
+                    <div className="circle1"></div>
+                    <div className="circle2"></div>
+                    <div className="circle3"></div>
+                </div>
+                <Events />
+                <div className="current-month-view">
+                    <span>{this.months[this.state.dispMonth]}</span>
+                    <span className="slash">/</span>
+                    <span>{this.state.dispYear}</span>
+                </div>
                 <div className="month-view-restrict">
                     {this.weeks.map((week,index)=>(
                         <div className="week-name" key={index}>{week}</div>
@@ -87,7 +113,7 @@ function generateDays(selMon,selYear){
     for (var i = 1 ; i <= monthDetails.days; i++ ){
         let obj = {};
         obj.date = i;
-        obj.currentDate = (i == yearDetails.date) ? true : false;
+        obj.currentDate = (i === yearDetails.date) ? true : false;
         MonthArray.push(obj);
     }
     monthDetails.day = (new Date(yearDetails.year, yearDetails.month,1)).getDay();
